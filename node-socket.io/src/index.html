@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Socket</title>
+</head>
+<body>
+    <h1>我是 index 页面，我引用了秘密 script 文件</h1>
+    <button id="btn">给服务端发送数据</button>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        // 连接的地址http://localhost:3000 后台提供
+        var socket = io.connect('http://localhost:3000');
+
+        // 客户端建立连接
+        socket.on('connect',function() {
+            console.log('客户端和服务端建立连接了');
+        }) 
+
+        socket.on('disconnect',function() {
+            console.log('客户端和服务端断开连接了');
+        }) 
+
+        // 客户端给服务端发送数据后，监听服务端返回的数据
+        socket.on('to-client',function(data) {
+            console.log('客户端说:' + data);
+        }) 
+
+        var btn = document.getElementById('btn');
+
+        btn.onclick = function() {
+            socket.emit('to-server','我是客户端的数据');
+        }
+    </script>
+</body>
+</html>

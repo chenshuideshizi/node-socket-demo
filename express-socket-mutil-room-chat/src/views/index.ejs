@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Room</title>
+    <script src="/jquery-1.11.3.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+    <h1>socket.io的多房间</h1>
+    <input type="button" value="加入购物车" onclick="addCart()"><br>
+    
+    <script type="text/javascript">
+        const room_id = 1
+        const socket = io.connect(`http://127.0.0.1:8000?room_id=${room_id}`);
+    
+        //接收服务器返回的信息
+        socket.on('addCart',function(data){
+            console.log(data);
+        });
+    
+        function addCart(){
+            socket.emit('addCart','addCart');
+        }
+    
+    </script>
+</body>
+</html>
+
+
+
+
